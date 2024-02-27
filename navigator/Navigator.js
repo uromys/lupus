@@ -2,6 +2,7 @@ import * as React from 'react';
 import { BottomNavigation, Text } from 'react-native-paper';
 import HomeScreen from '../screens/HomeScreen';
 import Personnage from '../screens/Personnage';
+import Creation from '../screens/Creation';
 const AlbumsRoute = () => <Text>Albums</Text>;
 
 const RecentsRoute = () => <Text>Recents</Text>;
@@ -9,9 +10,10 @@ const RecentsRoute = () => <Text>Recents</Text>;
 const Navigator = ({ route,navigation}) => {
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        { key: 'music', title: 'Music', focusedIcon: 'bell' },
-        { key: 'loup', title: 'Personnage', focusedIcon: 'album' },
-        { key: 'recents', title: 'Recents', focusedIcon: 'history',unfocusedIcon: 'bell-outline' },
+        { key: 'music', title: 'Music', focusedIcon: 'account-settings' },
+        { key: 'creation', title: 'Creation', focusedIcon: 'album'},
+        { key: 'loup', title: 'Personnage', focusedIcon: 'axe-battle',unfocusedIcon: 'axe' },
+
     ]);
 
     React.useEffect(() => {
@@ -26,7 +28,7 @@ const Navigator = ({ route,navigation}) => {
     const renderScene = BottomNavigation.SceneMap({
         music: HomeScreen,
         loup: Personnage,
-        recents: RecentsRoute,
+        creation: Creation,
     });
 
     return (

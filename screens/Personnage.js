@@ -7,7 +7,6 @@ const Personnage = () => {
 
     const [selectedItem, setSelectedItem] = React.useState(null);
 
-    // Function to render each item in the list
     const renderItem = ({ item }) => (
         <List.Item
             title={item.title}
