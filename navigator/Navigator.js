@@ -6,13 +6,22 @@ const AlbumsRoute = () => <Text>Albums</Text>;
 
 const RecentsRoute = () => <Text>Recents</Text>;
 
-const Navigator = () => {
+const Navigator = ({ route,navigation}) => {
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         { key: 'music', title: 'Music', focusedIcon: 'bell' },
         { key: 'loup', title: 'Personnage', focusedIcon: 'album' },
         { key: 'recents', title: 'Recents', focusedIcon: 'history',unfocusedIcon: 'bell-outline' },
     ]);
+
+    React.useEffect(() => {
+        // Update the title when the route changes
+        navigation.setOptions({
+            title: route.params && route.params.title
+                ? route.params.title
+                : '',
+        });
+    }, [route.params]);
 
     const renderScene = BottomNavigation.SceneMap({
         music: HomeScreen,
