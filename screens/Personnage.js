@@ -6,9 +6,28 @@ import { perso } from '../assets/perso/data';
 const Personnage = () => {
     const [selectedItem, setSelectedItem] = useState(null);
     const [isCampTextVisible, setIsCampTextVisible] = useState(false);
+    const [showPouvoir, setShowPouvoir] = useState(false);
 
     const toggleCampTextVisibility = () => {
         setIsCampTextVisible(!isCampTextVisible);
+    };
+
+    const togglePouvoirVisibility = () => {
+        setShowPouvoir(!showPouvoir);
+    };
+
+
+    const renderCampText = () => {
+        if (selectedItem) {
+            return selectedItem.condition
+        }
+        return '';
+    };
+    const renderPouvoirText = () => {
+        if (selectedItem) {
+            return selectedItem.pouvoir;
+        }
+        return '';
     };
 
     const renderItem = ({ item }) => (
@@ -19,6 +38,7 @@ const Personnage = () => {
                 setIsCampTextVisible(false);
             }}
             style={{ backgroundColor: selectedItem?.id === item.id ? '#e0e0e0' : 'white' }}
+
         />
     );
 
@@ -36,35 +56,60 @@ const Personnage = () => {
                         <Card>
                             <Card.Cover source={selectedItem.photo} />
                             <Card.Content>
-                                <Pressable onPress={toggleCampTextVisibility}>
-                                <Card.Actions>
 
+                                    <Card.Actions>
                                         <View
                                             style={{
-                                                position: 'absolute',
-                                                top: 0,
-                                                right: 0,
-                                                padding: 8,
-                                                backgroundColor:
-                                                    selectedItem.camp === 'loup'
-                                                        ? 'red'
-                                                        : selectedItem.camp === 'village'
-                                                            ? 'green'
-                                                            : 'blue',
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                                justifyContent: 'flex-end', // Align items to the end of the row
                                             }}
                                         >
-                                            <Text style={{ color: 'white' }}>{selectedItem.camp}</Text>
-                                            {isCampTextVisible && (
-                                                <Text style={{ color: 'white' }}>yes</Text>
+                                            <Pressable onPress={toggleCampTextVisibility}>
+                                            <View
+                                                style={{
+                                                    padding: 8,
+                                                    backgroundColor:
+                                                        selectedItem.camp === 'loup'
+                                                            ? 'red'
+                                                            : selectedItem.camp === 'village'
+                                                                ? 'green'
+                                                                : 'blue',
+                                                }}
+                                            >
+                                                <Text style={{ color: 'white' }}>
+                                                    {selectedItem.camp}
+                                                </Text>
+                                            </View>
+                                            </Pressable>
+                                            {selectedItem.pouvoir && (
+                                                <Pressable onPress={togglePouvoirVisibility}>
+                                                    <View
+                                                        style={{
+                                                            marginLeft: 8,
+                                                            padding: 8,
+                                                            backgroundColor: 'grey',
+                                                        }}
+                                                    >
+                                                        <Text style={{ color: 'white' }}>
+                                                            {'pouvoir'}
+                                                        </Text>
+                                                    </View>
+                                                </Pressable>
                                             )}
                                         </View>
-                                </Card.Actions>
-                                </Pressable>
-                                <Title>{selectedItem.title}</Title>
-                                <Paragraph>{selectedItem.description}</Paragraph>
+                                    </Card.Actions>
 
+
+                            <Title>{selectedItem.title}</Title>
+                                <Paragraph>
+                                    {isCampTextVisible
+                                        ? renderCampText()
+                                        : showPouvoir
+                                            ? renderPouvoirText()
+                                            : selectedItem.description}
+                                </Paragraph>
                             </Card.Content>
-
                         </Card>
                     ) : (
                         <Text></Text>

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, FlatList, Text, Alert } from 'react-native';
-import { List } from 'react-native-paper';
+import {List, useTheme} from 'react-native-paper';
 
 const Creation = () => {
+    const theme = useTheme();
     const [inputText, setInputText] = useState('');
     const [inputList, setInputList] = useState([]);
     const [error, setError] = useState('');
@@ -38,7 +39,6 @@ const Creation = () => {
     };
 
     const renderItem = ({ item, index }) => {
-        // Check if the index is even to render two items side by side
         if (index % 2 === 0) {
             return (
                 <View style={{ flexDirection: 'row', marginBottom: 8 }}>
@@ -46,7 +46,7 @@ const Creation = () => {
                         <List.Icon icon="label" />
                         <Text>{item.text}</Text>
                     </View>
-                    {index + 1 < inputList.length && ( // Check if there is another item
+                    {index + 1 < inputList.length && (
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <List.Icon icon="label" />
                             <Text>{inputList[index + 1].text}</Text>
@@ -55,14 +55,12 @@ const Creation = () => {
                 </View>
             );
         }
-
-        // Return null for odd indices, as they will be handled in the next iteration
         return null;
     };
 
 
     return (
-        <View style={{ padding: 16 }}>
+        <View  style={[theme.container, { backgroundColor: theme.colors.primaryContainer }]}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
                 <TextInput
                     placeholder="Ajouter un joueur"

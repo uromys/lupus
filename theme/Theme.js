@@ -1,28 +1,24 @@
-import { MD3LightTheme as DefaultTheme } from 'react-native-paper';
+import { MD3DarkTheme as DefaultTheme } from 'react-native-paper';
 
 const theme = {
   ...DefaultTheme,
+  dark: true,
   colors: {
     ...DefaultTheme.colors,
-    primary: 'tomato',
-    onPrimary: 'white',
-    primaryContainer: 'rgb(95, 43, 146)',
-    onPrimaryContainer: 'rgb(240, 219, 255)',
-    secondary: 'yellow',
-    onSecondary: 'black',
+    primary: '#FF6347', // Tomato
+    onPrimary: '#FFFFFF', // White
+    primaryContainer: '#5F2B92', // Dark Purple
+    onPrimaryContainer: '#F0DBFF', // Light Purple
+    secondary: '#FFD700', // Gold
+    onSecondary: '#000000', // Black
   },
   container: {
     flex: 1,
     justifyContent: 'space-evenly',
     alignItems: 'center',
     paddingHorizontal: 20,
+    backgroundColor: '#121212', // Dark background color
   },
 };
-
-//theme ref https://callstack.github.io/react-native-paper/docs/guides/theming
-
-//fonts ref https://callstack.github.io/react-native-paper/docs/guides/fonts#material-design-3
-
-//components ref https://callstack.github.io/react-native-paper/docs/components/ActivityIndicator
 
 export { theme };
