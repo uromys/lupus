@@ -3,15 +3,12 @@ import { BottomNavigation, Text } from 'react-native-paper';
 import HomeScreen from '../screens/HomeScreen';
 import Personnage from '../screens/Personnage';
 import Creation from '../screens/Creation';
-const AlbumsRoute = () => <Text>Albums</Text>;
-
-const RecentsRoute = () => <Text>Recents</Text>;
-
+import Composition from '../screens/Composition'
 const Navigator = ({ route,navigation}) => {
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        { key: 'music', title: 'Music', focusedIcon: 'account-settings' },
-        { key: 'creation', title: 'Creation', focusedIcon: 'album'},
+        { key: 'creation', title: 'Creation', focusedIcon: 'creation' },
+        { key: 'joueur', title: 'Joueur', focusedIcon: 'album'},
         { key: 'loup', title: 'Personnage', focusedIcon: 'axe-battle',unfocusedIcon: 'axe' },
 
     ]);
@@ -26,9 +23,9 @@ const Navigator = ({ route,navigation}) => {
     }, [route.params]);
 
     const renderScene = BottomNavigation.SceneMap({
-        music: HomeScreen,
+        creation: Composition,
         loup: Personnage,
-        creation: Creation,
+        joueur: Creation,
     });
 
     return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, FlatList, Text, Alert } from 'react-native';
 import {List, useTheme} from 'react-native-paper';
-
+import Composition from './Composition'
 const Creation = () => {
     const theme = useTheme();
     const [inputText, setInputText] = useState('');
@@ -17,12 +17,12 @@ const Creation = () => {
         const trimmedText = inputText.trim();
 
         if (trimmedText === '') {
-            setError('Le nom du joueur ne peut pas être vide.');
+            setError('Le nom du joueur ne peut pas être vide');
             return;
         }
 
         if (inputList.some((item) => item.text === trimmedText)) {
-            setError('Ce joueur est déjà dans la liste.');
+            setError('Ce joueur est déjà dans la liste');
             return;
         }
 

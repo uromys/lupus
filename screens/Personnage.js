@@ -4,7 +4,7 @@ import { List, Card, Paragraph, Title, Provider as PaperProvider } from 'react-n
 import { perso } from '../assets/perso/data';
 
 const Personnage = () => {
-    const [selectedItem, setSelectedItem] = useState(null);
+    const [selectedItem, setSelectedItem] = useState(perso[0]);
     const [isCampTextVisible, setIsCampTextVisible] = useState(false);
     const [showPouvoir, setShowPouvoir] = useState(false);
 
@@ -103,11 +103,15 @@ const Personnage = () => {
 
                             <Title>{selectedItem.title}</Title>
                                 <Paragraph>
-                                    {isCampTextVisible
-                                        ? renderCampText()
-                                        : showPouvoir
-                                            ? renderPouvoirText()
-                                            : selectedItem.description}
+                                    {(() => {
+                                        if (isCampTextVisible) {
+                                            return renderCampText();
+                                        } else if (showPouvoir) {
+                                            return renderPouvoirText();
+                                        } else {
+                                            return selectedItem?.description || "";
+                                        }
+                                    })()}
                                 </Paragraph>
                             </Card.Content>
                         </Card>

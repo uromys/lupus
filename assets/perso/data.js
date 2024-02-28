@@ -8,7 +8,7 @@ export const perso = [
     {photo: require("../villageois.jpg"), id: '3', title: 'villageois', description: 'Le villageois n\'a aucun pouvoir spécial, si ce n\'est de voter au conseil du village contre celui qu\'il suspecte être loup garou.',camp : "village" ,condition :condition_village},
     { id: '4', title: 'voyante', description: 'La voyante dispose d\'accès mystique lui permettant de devenir reine du royaume des ombres',pouvoir: 'Chaque nuit, elle peut connaître le rôle d\'un joueur qu\'elle aura choisi',camp : "village" ,condition :condition_village},
     { id: '5', title: 'chasseur', description: 'Le chasseur n\'a aucun rôle particulier à jouer tant qu\'il est vivant. Mais dès qu\'il meurt qu\'il soit tué dans la nuit (Loups-garous, sorcière) ou à la suite d\'une décision des villageois il doit désigner une personne qui mourra également, sur-le-champ' ,camp : "village",condition :condition_village },
-    { id: '6', title: 'survivant', description: 'Le survivant n\'a pas de pouvoir.Son unique but est de rester  en vie jusq\'a la fin de la parti' ,camp : "solo",condition :"rester en vie" },
-    { id: '7', title: 'Ange' ,description: 'Rageur,il ne cherche que la redemption pour cela il désire sacrifier son existence pour dévoiler la vérité.' ,camp : "solo",condition :"Gagnez seul lors du premier tour, ou gagnez avec le village" },
+    {photo: require("../survivant.jpeg"), id: '6', title: 'survivant', description: 'Le survivant n\'a pas de pouvoir.Son unique but est de rester  en vie jusq\'a la fin de la parti' ,camp : "solo",condition :"rester en vie" },
+    {photo: require("../ange.jpeg"), id: '7', title: 'Ange' ,description: 'Rageur,il ne cherche que la redemption pour cela il désire sacrifier son existence pour dévoiler la vérité.' ,camp : "solo",condition :"Gagnez seul lors du premier tour, ou gagnez avec le village" },
 
 ];
