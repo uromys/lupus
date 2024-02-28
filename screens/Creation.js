@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, FlatList, Text, Alert } from 'react-native';
 import {List, useTheme} from 'react-native-paper';
-import Composition from './Composition'
+import { usePersoContext } from '../context/PersoContext';
 const Creation = () => {
+
     const theme = useTheme();
     const [inputText, setInputText] = useState('');
-    const [inputList, setInputList] = useState([]);
+    const { inputList, setInputList } = usePersoContext();
     const [error, setError] = useState('');
 
     const handleInputChange = (text) => {
