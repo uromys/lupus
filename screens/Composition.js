@@ -56,14 +56,13 @@ const Composition = () => {
         };
 
         const buttonContainerStyle = {
-            flexDirection: 'row',
+            flexDirection: 'column', // Changed to column
             alignItems: 'center',
             justifyContent: 'center',
         };
 
         const iconStyle = {
-            marginRight: 12,
-            marginLeft: 12,
+            marginBottom: 12, // Added marginBottom
         };
 
         return (
@@ -74,15 +73,15 @@ const Composition = () => {
 
                         <View style={buttonContainerStyle}>
                             <IconButton
-                                icon={() => <Icon name="arrow-down" size={20} color="black" />}
-                                onPress={() => handleDecrement(item.id)}
-                                style={{ marginRight: 4 }}
-                            />
-                            <Text style={{ fontSize: 16, color: 'black', marginRight: 12 }}>{counts[item.id] || 0}</Text>
-                            <IconButton
                                 icon={() => <Icon name="arrow-up" size={20} color="black" />}
                                 onPress={() => handleIncrement(item.id)}
-                                style={{ marginLeft: 4 }}
+                                style={iconStyle}
+                            />
+                            <Text style={{ fontSize: 16, color: 'black' }}>{counts[item.id] || 0}</Text>
+                            <IconButton
+                                icon={() => <Icon name="arrow-down" size={20} color="black" />}
+                                onPress={() => handleDecrement(item.id)}
+                                style={iconStyle}
                             />
                         </View>
                     </Card.Content>
