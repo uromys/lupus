@@ -45,7 +45,6 @@ const Personnage = () => {
     return (
         <PaperProvider>
             <View style={{ flex: 1, flexDirection: 'row' }}>
-                {/* Left side - scrolling list */}
                 <View style={{ flex: 1, borderRightWidth: 1, borderColor: '#e0e0e0' }}>
                     <FlatList data={perso} renderItem={renderItem} keyExtractor={(item) => item.id} />
                 </View>

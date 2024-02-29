@@ -1,68 +1,120 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
-import { Button, Card } from 'react-native-paper';
+import { View, Text, FlatList, Dimensions } from 'react-native';
+import {Button, Card, IconButton, useTheme} from 'react-native-paper';
 import { perso } from '../assets/perso/data';
 import { usePersoContext } from '../context/PersoContext';
+import Icon from 'react-native-vector-icons/FontAwesome'; // Adjust the icon library based on your preference
+
 const Composition = () => {
+    const theme = useTheme();
     const { inputList } = usePersoContext();
     const [counts, setCounts] = useState({});
-
+    const { width } = Dimensions.get('window');
+    const cardWidth = width / 2 - 24;
     const handleIncrement = (id) => {
-        const currentItem = inputList.find(item => item.id === id);
-        const maxAllowedCount = currentItem ? currentItem.text : 0;
-        console.log(inputList)
-        if ((counts[id] || 0) < maxAllowedCount) {
+        const maxAllowedCount = inputList.length;
+
+        const currentTotalCount = Object.values(counts).reduce((sum, count) => sum + count, 0);
+
+        if (currentTotalCount < maxAllowedCount) {
             setCounts((prevCounts) => ({
                 ...prevCounts,
                 [id]: (prevCounts[id] || 0) + 1,
             }));
         }
     };
-
     const handleDecrement = (id) => {
-        setCounts((prevCounts) => ({
-            ...prevCounts,
-            [id]: Math.max((prevCounts[id] || 0) - 1, 0),
-        }));
+        if (counts[id] > 0) {
+            setCounts((prevCounts) => ({
+                ...prevCounts,
+                [id]: prevCounts[id] - 1,
+            }));
+        }
     };
 
-    const renderPerson = ({ item }) => (
-        <Card style={{ margin: 8, borderRadius: 16, overflow: 'hidden', elevation: 4 }}>
-            <Card.Content style={{ padding: 16, backgroundColor: 'white', borderRadius: 16 }}>
-                <Text style={{ fontSize: 20, marginBottom: 12, fontWeight: 'bold', color: 'black' }}>{item.title}</Text>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Button mode="contained" onPress={() => handleDecrement(item.id)} style={{ borderRadius: 12, backgroundColor: '#FF6666', marginRight: 8 }}>
-                        -
-                    </Button>
-                    <Text style={{ fontSize: 18, color: 'black' }}>{counts[item.id] || 0}</Text>
-                    <Button mode="contained" onPress={() => handleIncrement(item.id)} style={{ borderRadius: 12, backgroundColor: '#66CC66', marginLeft: 8 }}>
-                        +
-                    </Button>
-                </View>
-            </Card.Content>
-        </Card>
-    );
+
+    const renderPerson = ({ item }) => {
+        const cardStyle = {
+            width: cardWidth,
+            margin: 8,
+            borderRadius: 16,
+            overflow: 'hidden',
+            elevation: 4,
+        };
+
+        const contentStyle = {
+            padding: 16,
+            backgroundColor: 'white',
+            borderRadius: 16,
+        };
+
+        const titleStyle = {
+            fontSize: 20,
+            marginBottom: 12,
+            fontWeight: 'bold',
+            color: 'black',
+        };
+
+        const buttonContainerStyle = {
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+        };
+
+        const iconStyle = {
+            marginRight: 12,
+            marginLeft: 12,
+        };
+
+        return (
+            <View>
+                <Card style={cardStyle}>
+                    <Card.Content style={contentStyle}>
+                        <Text style={titleStyle}>{item.title}</Text>
+
+                        <View style={buttonContainerStyle}>
+                            <IconButton
+                                icon={() => <Icon name="arrow-down" size={20} color="black" />}
+                                onPress={() => handleDecrement(item.id)}
+                                style={{ marginRight: 4 }}
+                            />
+                            <Text style={{ fontSize: 16, color: 'black', marginRight: 12 }}>{counts[item.id] || 0}</Text>
+                            <IconButton
+                                icon={() => <Icon name="arrow-up" size={20} color="black" />}
+                                onPress={() => handleIncrement(item.id)}
+                                style={{ marginLeft: 4 }}
+                            />
+                        </View>
+                    </Card.Content>
+                </Card>
+            </View>
+        );
+    };
 
     const renderSublist = (camp) => {
         const filteredList = perso.filter((item) => item.camp === camp);
         return (
             <View style={{ marginBottom: 16 }}>
+
                 <FlatList
                     data={filteredList}
                     renderItem={renderPerson}
                     keyExtractor={(item) => item.id}
                     numColumns={1}
-                    style={{ flex: 1 }}
                 />
             </View>
         );
     };
+    const topNumberText = `${Object.values(counts).reduce((sum, count) => sum + count, 0)}/${inputList.length} places disponibles`;
 
     return (
-        <View style={{ padding: 16, flexDirection: 'row' }}>
-            <View style={{ flex: 1 }}>{renderSublist('loup')}</View>
-            <View style={{ flex: 1 }}>{renderSublist('village')}</View>
-            <View style={{ flex: 1 }}>{renderSublist('solo')}</View>
+        <View style={[theme.container, { backgroundColor: theme.colors.primaryContainer, padding: 16 }]}>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 16 }}>{topNumberText}</Text>
+            <View style={{ flexDirection: 'row' }}>
+                <View style={{ flex: 1 }}>{renderSublist('loup')}</View>
+                <View style={{ flex: 1 }}>{renderSublist('village')}</View>
+                <View style={{ flex: 1 }}>{renderSublist('solo')}</View>
+            </View>
         </View>
     );
 };
