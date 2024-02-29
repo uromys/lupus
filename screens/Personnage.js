@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, FlatList, Text, Pressable } from 'react-native';
+import { View, FlatList, Text, Pressable,ScrollView } from 'react-native';
 import { List, Card, Paragraph, Title, Provider as PaperProvider } from 'react-native-paper';
 import { perso } from '../assets/perso/data';
 
@@ -45,9 +45,9 @@ const Personnage = () => {
     return (
         <PaperProvider>
             <View style={{ flex: 1, flexDirection: 'row' }}>
-                <View style={{ flex: 1, borderRightWidth: 1, borderColor: '#e0e0e0' }}>
+                <ScrollView style={{ flex: 1, borderRightWidth: 1, borderColor: '#e0e0e0' }}>
                     <FlatList data={perso} renderItem={renderItem} keyExtractor={(item) => item.id} />
-                </View>
+                </ScrollView>
 
                 {/* Right side - display specific text */}
                 <View style={{ flex: 2, padding: 16, position: 'relative' }}>

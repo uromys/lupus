@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, Dimensions } from 'react-native';
-import {Button, Card, IconButton, useTheme} from 'react-native-paper';
+import { View, Text, FlatList, Dimensions,StyleSheet } from 'react-native';
+import {Button, Card, IconButton, useTheme,Divider} from 'react-native-paper';
 import { perso } from '../assets/perso/data';
 import { usePersoContext } from '../context/PersoContext';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Adjust the icon library based on your preference
-
+import Creation from '../components/Creation';
 const Composition = () => {
     const theme = useTheme();
     const { inputList } = usePersoContext();
     const [counts, setCounts] = useState({});
     const { width } = Dimensions.get('window');
     const cardWidth = width / 2 - 24;
+    const maxAllowedCount = inputList.length;
     const handleIncrement = (id) => {
-        const maxAllowedCount = inputList.length;
-
         const currentTotalCount = Object.values(counts).reduce((sum, count) => sum + count, 0);
 
         if (currentTotalCount < maxAllowedCount) {
@@ -43,26 +42,26 @@ const Composition = () => {
         };
 
         const contentStyle = {
-            padding: 16,
+            padding: 8,
             backgroundColor: 'white',
-            borderRadius: 16,
+            borderRadius: 8,
         };
 
         const titleStyle = {
-            fontSize: 20,
+            fontSize: 10,
             marginBottom: 12,
             fontWeight: 'bold',
             color: 'black',
         };
 
         const buttonContainerStyle = {
-            flexDirection: 'column', // Changed to column
+            flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
+            marginTop: 5,
         };
 
         const iconStyle = {
-            marginBottom: 12, // Added marginBottom
         };
 
         return (
@@ -104,17 +103,32 @@ const Composition = () => {
             </View>
         );
     };
-    const topNumberText = `${Object.values(counts).reduce((sum, count) => sum + count, 0)}/${inputList.length} places disponibles`;
-
+    const topNumberText = `${maxAllowedCount-Object.values(counts).reduce((sum, count) => sum + count, 0)} places disponibles`;
+    const styles = StyleSheet.create({
+        container: {
+            ...theme.container,
+            backgroundColor: theme.colors.primaryContainer,
+            padding: 16,
+        },
+        column: {
+            flex: 1,
+        },
+    });
     return (
-        <View style={[theme.container, { backgroundColor: theme.colors.primaryContainer, padding: 16 }]}>
+
+
+        <View style={[styles.container]}>
+            <Creation></Creation>
             <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 16 }}>{topNumberText}</Text>
             <View style={{ flexDirection: 'row' }}>
-                <View style={{ flex: 1 }}>{renderSublist('loup')}</View>
-                <View style={{ flex: 1 }}>{renderSublist('village')}</View>
-                <View style={{ flex: 1 }}>{renderSublist('solo')}</View>
+                <View style={styles.column}>{renderSublist('loup')}</View>
+                <Divider />
+                <View style={styles.column}>{renderSublist('village')}</View>
+                <Divider />
+                <View style={styles.column}>{renderSublist('solo')}</View>
             </View>
         </View>
+
     );
 };
 

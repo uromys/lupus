@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BottomNavigation, Text } from 'react-native-paper';
 import Personnage from '../screens/Personnage';
-import Creation from '../screens/Creation';
+import Creation from '../components/Creation';
 import Composition from '../screens/Composition'
 const Navigator = ({ route,navigation}) => {
     const [index, setIndex] = React.useState(0);

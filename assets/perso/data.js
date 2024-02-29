@@ -2,13 +2,96 @@
 const condition_Loup = "Pour gagner il doit tuer tout les membres du villages"
 const condition_village = "Pour gagner il doit tuer tout les loups garoux"
 export const perso = [
-    {pouvoir: 'Il se réunit chaque nuit avec les autres loups-garous pour décider de tuer un joueur',photo: require("../loup-garou.jpg"), id: '1', title: 'loup garou', description: 'Il connaît l\'identité des autres loups-garous et doit essayer de tuer tous les villageois sans se faire découvrir' ,camp : "loup" ,condition :condition_Loup},
-    {pouvoir: 'Lors de la première nuit il peut infecter un membre du village, qui conserve ces pouvoirs mais doit désormais tuer tout les villageois',photo: require("../loup-noir.jpg"), id: '2', title: 'loup ancien', description: 'Le loup ancien a traversé les âges et permi a la meute d\'atteindre un nombre important de membre' ,camp : "loup" ,condition :condition_Loup},
-    {photo: require("../loup-blanc.jpg"), id: '8', title: 'loup blanc', description: 'Le loup garou blanc est un loup albinos,rejeter par ces pairs,il ne désire que se venger' ,camp : "solo" ,condition :'doit être le dernier survivant du village'},
-    {photo: require("../villageois.jpg"), id: '3', title: 'villageois', description: 'Le villageois n\'a aucun pouvoir spécial, si ce n\'est de voter au conseil du village contre celui qu\'il suspecte être loup garou.',camp : "village" ,condition :condition_village},
-    { id: '4', title: 'voyante', description: 'La voyante dispose d\'accès mystique lui permettant de devenir reine du royaume des ombres',pouvoir: 'Chaque nuit, elle peut connaître le rôle d\'un joueur qu\'elle aura choisi',camp : "village" ,condition :condition_village},
-    { id: '5', title: 'chasseur', description: 'Le chasseur n\'a aucun rôle particulier à jouer tant qu\'il est vivant. Mais dès qu\'il meurt qu\'il soit tué dans la nuit (Loups-garous, sorcière) ou à la suite d\'une décision des villageois il doit désigner une personne qui mourra également, sur-le-champ' ,camp : "village",condition :condition_village },
-    {photo: require("../survivant.jpeg"), id: '6', title: 'survivant', description: 'Le survivant n\'a pas de pouvoir.Son unique but est de rester  en vie jusq\'a la fin de la parti' ,camp : "solo",condition :"rester en vie" },
-    {photo: require("../ange.jpeg"), id: '7', title: 'Ange' ,description: 'Rageur,il ne cherche que la redemption pour cela il désire sacrifier son existence pour dévoiler la vérité.' ,camp : "solo",condition :"Gagnez seul lors du premier tour, ou gagnez avec le village" },
-
+    {
+        id: '122222222',
+        title: 'Loup garou',
+        pouvoir: 'Il se réunit chaque nuit avec les autres loups-garous pour décider de tuer un joueur',
+        photo: require("../loup-garou.jpg"),
+        description: 'Il connaît l\'identité des autres loups-garous et doit essayer de tuer tous les villageois sans se faire découvrir',
+        camp: "loup",
+        condition: condition_Loup
+    },
+    {
+        id: '1',
+        title: 'Loup ancien',
+        pouvoir: 'Lors de la première nuit, il peut infecter un membre du village, qui conserve ces pouvoirs mais doit désormais tuer tous les villageois',
+        photo: require("../loup-noir.jpg"),
+        description: 'Le loup ancien a traversé les âges et permis à la meute d\'atteindre un nombre important de membres',
+        camp: "loup",
+        condition: condition_Loup
+    },
+    {
+        id: '8000',
+        title: 'Loup blanc',
+        photo: require("../loup-blanc.jpg"),
+        description: 'Le loup-garou blanc est un loup albinos, rejeté par ses pairs, il ne désire que se venger',
+        camp: "solo",
+        condition: 'doit être le dernier survivant du village ( avec potentiellement le survivant )'
+    },
+    {
+        id: '2',
+        title: 'Villageois',
+        photo: require("../villageois.jpg"),
+        description: 'Le villageois n\'a aucun pouvoir spécial, si ce n\'est de voter au conseil du village contre celui qu\'il suspecte être loup-garou.',
+        camp: "village",
+        condition: condition_village
+    },
+    {
+        id: '3',
+        title: 'Voyante',
+        pouvoir: 'Chaque nuit, elle peut connaître le rôle d\'un joueur qu\'elle aura choisi',
+        description: 'La voyante dispose d\'accès mystiques lui permettant de devenir reine du royaume des ombres',
+        camp: "village",
+        condition: condition_village
+    },
+    {
+        id: '4',
+        title: 'Chasseur',
+        description: 'Le chasseur n\'a aucun rôle particulier à jouer tant qu\'il est vivant. Mais dès qu\'il meurt, qu\'il soit tué dans la nuit (Loups-garous, sorcière) ou à la suite d\'une décision des villageois, il doit désigner une personne qui mourra également, sur-le-champ',
+        camp: "village",
+        condition: condition_village
+    },
+    {
+        id: '5',
+        title: 'Survivant',
+        photo: require("../survivant.jpeg"),
+        description: 'Le survivant n\'a pas de pouvoir. Son unique but est de rester en vie jusqu\'à la fin de la partie',
+        camp: "solo",
+        condition: "rester en vie jusqu'à la fin de la partie"
+    },
+    {
+        id: '6',
+        title: 'Ange',
+        photo: require("../ange.jpeg"),
+        description: 'Rageur, il ne cherche que la rédemption. Pour cela, il désire sacrifier son existence pour dévoiler la vérité.',
+        camp: "solo",
+        condition: "Gagnez seul lors du premier tour, ou gagnez avec le village"
+    },
+    {
+        id: '7',
+        title: 'Renard',
+        photo: require("../renard.jpg"),
+        description: 'Le renard a toujours eu un instinct lui permettant de déceler le vrai du faux',
+        pouvoir: 'Il désigne une personne, si la personne ou ses 2 voisins sont dans le camp des loups, alors il pourra réutiliser son pouvoir la nuit prochaine',
+        camp: "village",
+        condition: condition_village
+    },
+    {
+        id: '8',
+        title: 'Salvateur',
+        photo: require("../salvateur.jpg"),
+        description: 'Devenu maître des arts occultes,cet homme connait tout des loups garou',
+        pouvoir: 'Il designe une personne, cette personne est immunisé contre les loups garous pendant une nuit',
+        camp: "village",
+        condition: condition_village
+    },
+    {
+        id: '9',
+        title: 'Sorcière',
+        photo: require("../sorciere.jpg"),
+        description: "Experte en potion,on raconte qu'elle a traversé les âges",
+        pouvoir: "Elle dispose de deux potions à usage unique,une permet de ressusciter la victime des loups garoux, l'autres de tuer un joueur",
+        camp: "village",
+        condition: condition_village
+    },
 ];

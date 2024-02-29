@@ -59,18 +59,17 @@ const Creation = () => {
         return null;
     };
 
-
     return (
-        <View  style={[theme.container, { backgroundColor: theme.colors.primaryContainer }]}>
+        <View style={{ backgroundColor: 'yellow' }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
                 <TextInput
                     placeholder="Ajouter un joueur"
                     value={inputText}
                     onChangeText={handleInputChange}
                     onSubmitEditing={handleAddItem}
-                    style={{ flex: 1, marginRight: 8 }}
+                    style={{ width: '100%', padding: 8, backgroundColor: 'white', borderRadius: 8 }}
+
                 />
-                <Text>{`Nombre actuel: ${inputList.length}`}</Text>
             </View>
             {error ? (
                 <View style={{ marginBottom: 16 }}>
