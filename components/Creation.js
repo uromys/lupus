@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, FlatList, Text, Alert } from 'react-native';
+import { View, TextInput, Button, FlatList, Text, Alert,StyleSheet } from 'react-native';
 import {List, useTheme} from 'react-native-paper';
 import { usePersoContext } from '../context/PersoContext';
 const Creation = () => {
@@ -58,9 +58,16 @@ const Creation = () => {
         }
         return null;
     };
+    const styles = StyleSheet.create({
+        // ... other styles
 
+        flatListContentContainer: {
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+    });
     return (
-        <View style={{ backgroundColor: 'yellow' }}>
+        <View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
                 <TextInput
                     placeholder="Ajouter un joueur"
@@ -80,6 +87,7 @@ const Creation = () => {
                 data={inputList}
                 keyExtractor={(item) => item.id}
                 renderItem={renderItem}
+                contentContainerStyle={styles.flatListContentContainer}
             />
         </View>
     );
