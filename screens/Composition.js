@@ -13,26 +13,41 @@ const Composition = () => {
     const { width } = Dimensions.get('window');
     const cardWidth = width / 2 - 24;
     const maxAllowedCount = inputList.length;
+    const [selectedCounts, setSelectedCounts] = useState({});
 
+    // Modify handleIncrement and handleDecrement functions to update selectedCounts
     const handleIncrement = (id) => {
-        const currentTotalCount = Object.values(counts).reduce((sum, count) => sum + count, 0);
+        const currentTotalCount = Object.values(selectedCounts).reduce((sum, count) => sum + count, 0);
 
         if (currentTotalCount < maxAllowedCount) {
-            setCounts((prevCounts) => ({
-                ...prevCounts,
-                [id]: (prevCounts[id] || 0) + 1,
-            }));
+            setSelectedCounts((prevCounts) => {
+                const newCounts = {
+                    ...prevCounts,
+                    [id]: (prevCounts[id] || 0) + 1,
+                };
+                const persoTitle = perso.find((p) => p.id === id)?.title || "Unknown";
+                console.log(`Increment - ${persoTitle}: ${newCounts[id]}`); // Log the title and updated count
+                return newCounts;
+            });
         }
     };
 
+
     const handleDecrement = (id) => {
-        if (counts[id] > 0) {
-            setCounts((prevCounts) => ({
-                ...prevCounts,
-                [id]: prevCounts[id] - 1,
-            }));
+        if (selectedCounts[id] > 0) {
+            setSelectedCounts((prevCounts) => {
+                const newCounts = {
+                    ...prevCounts,
+                    [id]: prevCounts[id] - 1,
+                };
+                const persoTitle = perso.find((p) => p.id === id)?.title || "Unknown";
+                console.log(`Decrement - ${persoTitle}: ${newCounts[id]}`); // Log the title and updated count
+                console.log("Selected Counts:", selectedCounts);
+                return newCounts;
+            });
         }
     };
+
 
     const renderPerson = ({ item }) => {
         return (
@@ -47,7 +62,7 @@ const Composition = () => {
                                 onPress={() => handleIncrement(item.id)}
                                 style={styles.iconStyle}
                             />
-                            <Text style={{ fontSize: 16, color: 'black' }}>{counts[item.id] || 0}</Text>
+                            <Text style={{ fontSize: 16, color: 'black' }}>{selectedCounts[item.id] || 0}</Text>
                             <IconButton
                                 icon={() => <Icon name="arrow-down" size={20} color="black" />}
                                 onPress={() => handleDecrement(item.id)}
@@ -121,9 +136,7 @@ const Composition = () => {
             contentContainerStyle={{ flexGrow: 1 }}
         >
             <Creation />
-
-
-            <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 16 }}>{topNumberText}</Text>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 16,color :'white' }}>{topNumberText}</Text>
             <View style={styles.column}>{renderSublist('loup')}</View>
             <Divider />
             <View style={styles.column}>{renderSublist('village')}</View>

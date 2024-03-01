@@ -59,28 +59,41 @@ const Creation = () => {
         return null;
     };
     const styles = StyleSheet.create({
-        // ... other styles
-
+        container: {
+            flex: 1,
+            paddingHorizontal: 20,
+            backgroundColor: theme.colors.surface, // Use the primaryContainer color from the theme
+        },
         flatListContentContainer: {
             alignItems: 'center',
             justifyContent: 'center',
         },
+        inputTextStyle: {
+            width: '100%',
+            padding: 8,
+            backgroundColor: theme.colors.onPrimary, // Use the surface color from the theme
+            borderRadius: 8,
+            color: theme.text, // Use the text color from the theme
+        },
+        errorTextStyle: {
+            marginBottom: 16,
+            color: theme.colors.error, // Use the error color from the theme
+        },
     });
     return (
-        <View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
+        <View style={styles.container}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 , backgroundColor: theme.colors.surface }}>
                 <TextInput
                     placeholder="Ajouter un joueur"
                     value={inputText}
                     onChangeText={handleInputChange}
                     onSubmitEditing={handleAddItem}
-                    style={{ width: '100%', padding: 8, backgroundColor: 'white', borderRadius: 8 }}
-
+                    style={{ ...styles.inputTextStyle}}
                 />
             </View>
             {error ? (
-                <View style={{ marginBottom: 16 }}>
-                    <Text style={{ color: 'red' }}>{error}</Text>
+                <View style={styles.errorTextStyle}>
+                    <Text>{error}</Text>
                 </View>
             ) : null}
             <FlatList

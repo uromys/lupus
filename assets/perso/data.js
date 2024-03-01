@@ -1,6 +1,6 @@
 
 const condition_Loup = "Pour gagner il doit tuer tout les membres du villages"
-const condition_village = "Pour gagner il doit tuer tout les loups garoux"
+const condition_village = "Pour gagner il doit tuer tout les loups garous"
 export const perso = [
     {
         id: '122222222',
@@ -17,6 +17,15 @@ export const perso = [
         pouvoir: 'Lors de la première nuit, il peut infecter un membre du village, qui conserve ces pouvoirs mais doit désormais tuer tous les villageois',
         photo: require("../loup-noir.jpg"),
         description: 'Le loup ancien a traversé les âges et permis à la meute d\'atteindre un nombre important de membres',
+        camp: "loup",
+        condition: condition_Loup
+    },
+    {
+        id: '13332666',
+        title: 'Sbire',
+        photo: require("../sbire.webp"),
+        description: 'Serviteur et adorateurs des loups.' +
+            'Il ne se réveille pas en même temps que les loups et les loups garous ne connaissent pas son existence',
         camp: "loup",
         condition: condition_Loup
     },
@@ -91,6 +100,24 @@ export const perso = [
         photo: require("../sorciere.jpg"),
         description: "Experte en potion,on raconte qu'elle a traversé les âges",
         pouvoir: "Elle dispose de deux potions à usage unique,une permet de ressusciter la victime des loups garoux, l'autres de tuer un joueur",
+        camp: "village",
+        condition: condition_village
+    },
+    {
+        id: '10',
+        title: 'Cupidon',
+        photo: require("../cupidon.jpg"),
+        description: "Ce chérubin ne désire que voir l'amour naître entre ces citoyens",
+        pouvoir: "Il designe deux joueurs, si l'un meurt l'autre meurt.Si leurs conditions de victoires sont en oppositions,ils gagnent lorsqu'ils sont les deux derniers en vie",
+        camp: "village",
+        condition: condition_village
+    },
+    {
+        id: '11',
+        title: "Montreur d'ours",
+        photo: require("../bear.png"),
+        description: "Bête de foire, cet homme a réussi à capturer un ours vivant qu'il a dressé pour faire des tours",
+        pouvoir: "Tout les matins,l'ours grognent si les voisins (ou si le montreurs d'ours suite à une infection par le loup noir ) sont dans le camps des loups",
         camp: "village",
         condition: condition_village
     },

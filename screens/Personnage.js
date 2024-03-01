@@ -45,9 +45,12 @@ const Personnage = () => {
     return (
         <PaperProvider>
             <View style={{ flex: 1, flexDirection: 'row' }}>
-                <ScrollView style={{ flex: 1, borderRightWidth: 1, borderColor: '#e0e0e0' }}>
-                    <FlatList data={perso} renderItem={renderItem} keyExtractor={(item) => item.id} />
-                </ScrollView>
+                <FlatList
+                    data={perso}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id.toString()}
+                    style={{ flex: 1, borderRightWidth: 1, borderColor: '#e0e0e0' }}
+                />
 
                 {/* Right side - display specific text */}
                 <View style={{ flex: 2, padding: 16, position: 'relative' }}>
