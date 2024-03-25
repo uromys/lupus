@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { View, Text, FlatList, Dimensions, StyleSheet, ScrollView } from 'react-native';
 import { Button, Card, IconButton, useTheme, Divider } from 'react-native-paper';
 import { perso } from '../assets/perso/data';
@@ -14,8 +14,36 @@ const Composition = () => {
     const cardWidth = width / 2 - 24;
     const maxAllowedCount = inputList.length;
     const [selectedCounts, setSelectedCounts] = useState({});
+    const [availablePlacesText, setAvailablePlacesText] = useState('');
+    useEffect(() => {
+        const totalSelectedCount = Object.values(selectedCounts).reduce((sum, count) => sum + count, 0);
+        const availablePlaces = maxAllowedCount - totalSelectedCount;
+        setAvailablePlacesText(`${availablePlaces} places disponibles`);
+    }, [selectedCounts, maxAllowedCount]);
+    const topNumberText = `${maxAllowedCount - Object.values(counts).reduce((sum, count) => sum + count, 0)} places disponibles`;
 
-    // Modify handleIncrement and handleDecrement functions to update selectedCounts
+    const randomizeCounts = () => {
+        let totalAvailable = maxAllowedCount;
+        let newCounts = {};
+    
+        // Initialize all counts to zero
+        perso.forEach((p) => {
+            newCounts[p.id] = 0;
+        });
+    
+        // Distribute the counts randomly
+        while (totalAvailable > 0) {
+            perso.forEach((p) => {
+                if (totalAvailable > 0) {
+                    const randomIncrement = Math.floor(Math.random() * (totalAvailable + 1));
+                    newCounts[p.id] += randomIncrement;
+                    totalAvailable -= randomIncrement;
+                }
+            });
+        }
+    
+        setSelectedCounts(newCounts);
+    };
     const handleIncrement = (id) => {
         const currentTotalCount = Object.values(selectedCounts).reduce((sum, count) => sum + count, 0);
 
@@ -89,7 +117,6 @@ const Composition = () => {
         );
     };
 
-    const topNumberText = `${maxAllowedCount - Object.values(counts).reduce((sum, count) => sum + count, 0)} places disponibles`;
 
     const styles = StyleSheet.create({
         cardStyle: {
@@ -136,7 +163,8 @@ const Composition = () => {
             contentContainerStyle={{ flexGrow: 1 }}
         >
             <Creation />
-            <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 16,color :'white' }}>{topNumberText}</Text>
+            <Button onPress={randomizeCounts}>Randomize Counts</Button>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 16,color :'white' }}>{availablePlacesText}</Text>
             <View style={styles.column}>{renderSublist('loup')}</View>
             <Divider />
             <View style={styles.column}>{renderSublist('village')}</View>

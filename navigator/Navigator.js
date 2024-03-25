@@ -13,7 +13,6 @@ const Navigator = ({ route,navigation}) => {
     ]);
 
     React.useEffect(() => {
-        // Update the title when the route changes
         navigation.setOptions({
             title: route.params && route.params.title
                 ? route.params.title

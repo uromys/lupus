@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, FlatList, Text, Alert,StyleSheet } from 'react-native';
-import {List, useTheme} from 'react-native-paper';
+import { View, TextInput, Button, FlatList, Text, Alert, StyleSheet } from 'react-native';
+import { List, useTheme } from 'react-native-paper';
 import { usePersoContext } from '../context/PersoContext';
-const Creation = () => {
 
+const Creation = () => {
     const theme = useTheme();
     const [inputText, setInputText] = useState('');
     const { inputList, setInputList } = usePersoContext();
@@ -16,7 +16,6 @@ const Creation = () => {
 
     const handleAddItem = () => {
         const trimmedText = inputText.trim();
-
         if (trimmedText === '') {
             setError('Le nom du joueur ne peut pas être vide');
             return;
@@ -35,72 +34,85 @@ const Creation = () => {
         setError('');
     };
 
-    const showAlert = () => {
-        Alert.alert('Erreur', error, [{ text: 'OK', onPress: () => setError('') }]);
+    const renderItem = ({ item, index }) => {
+        return (
+            <View style={styles.itemContainer}>
+                <List.Icon icon="label" />
+                <Text style={styles.itemText}>{item.text}</Text>
+            </View>
+        );
     };
 
-    const renderItem = ({ item, index }) => {
-        if (index % 2 === 0) {
-            return (
-                <View style={{ flexDirection: 'row', marginBottom: 8 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <List.Icon icon="label" />
-                        <Text>{item.text}</Text>
-                    </View>
-                    {index + 1 < inputList.length && (
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <List.Icon icon="label" />
-                            <Text>{inputList[index + 1].text}</Text>
-                        </View>
-                    )}
-                </View>
-            );
-        }
-        return null;
-    };
+    // Styles
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            paddingHorizontal: 20,
-            backgroundColor: theme.colors.surface, // Use the primaryContainer color from the theme
-        },
-        flatListContentContainer: {
-            alignItems: 'center',
-            justifyContent: 'center',
+            padding: 20,
+            backgroundColor: theme.colors.background,
         },
         inputTextStyle: {
-            width: '100%',
-            padding: 8,
-            backgroundColor: theme.colors.onPrimary, // Use the surface color from the theme
-            borderRadius: 8,
-            color: theme.text, // Use the text color from the theme
+            flex: 1,
+            padding: 10,
+            marginHorizontal: 5,
+            backgroundColor: theme.colors.onSurface,
+            borderRadius: 20,
+            fontSize: 16,
+            color: theme.colors.onPrimary,
+        },
+        itemContainer: {
+            flexDirection: 'row',
+            padding: 10,
+            marginVertical: 5,
+            backgroundColor: theme.colors.surface,
+            borderRadius: 5,
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+        },
+        itemText: {
+            marginLeft: 10,
+            fontSize: 16,
+            color: theme.colors.onSurface,
         },
         errorTextStyle: {
-            marginBottom: 16,
-            color: theme.colors.error, // Use the error color from the theme
+            padding: 10,
+            marginBottom: 10,
+            color: theme.colors.error,
+            borderRadius: 5,
+            textAlign: 'center',
+        },
+        addButton: {
+            padding: 10,
+            marginHorizontal: 5,
+            backgroundColor: theme.colors.primary,
+            borderRadius: 20,
+            justifyContent: 'center',
+        },
+        buttonText: {
+            color: theme.colors.onPrimary,
+            textAlign: 'center',
         },
     });
+
     return (
         <View style={styles.container}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 , backgroundColor: theme.colors.surface }}>
+            <View style={{ flexDirection: 'row', marginBottom: 10 }}>
                 <TextInput
                     placeholder="Ajouter un joueur"
+                    placeholderTextColor={theme.colors.placeholder}
                     value={inputText}
                     onChangeText={handleInputChange}
+                    style={styles.inputTextStyle}
                     onSubmitEditing={handleAddItem}
-                    style={{ ...styles.inputTextStyle}}
                 />
             </View>
             {error ? (
-                <View style={styles.errorTextStyle}>
-                    <Text>{error}</Text>
-                </View>
+                <Text style={styles.errorTextStyle}>{error}</Text>
             ) : null}
             <FlatList
                 data={inputList}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item.id.toString()}
                 renderItem={renderItem}
-                contentContainerStyle={styles.flatListContentContainer}
+                contentContainerStyle={{ flexGrow: 1 }}
             />
         </View>
     );
