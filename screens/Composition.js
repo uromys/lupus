@@ -27,8 +27,9 @@ const Composition = () => {
   const { width } = Dimensions.get("window");
   const cardWidth = width / 2 - 24;
   const maxAllowedCount = inputList.length;
-  const [selectedCounts, setSelectedCounts] = useState({});
+  const { selectedCounts, setSelectedCounts } = usePersoContext();
   const [availablePlacesText, setAvailablePlacesText] = useState("");
+
   useEffect(() => {
     const totalSelectedCount = Object.values(selectedCounts).reduce(
       (sum, count) => sum + count,
@@ -37,6 +38,7 @@ const Composition = () => {
     const availablePlaces = maxAllowedCount - totalSelectedCount;
     setAvailablePlacesText(`${availablePlaces} places disponibles`);
   }, [selectedCounts, maxAllowedCount]);
+
   const topNumberText = `${
     maxAllowedCount -
     Object.values(counts).reduce((sum, count) => sum + count, 0)
