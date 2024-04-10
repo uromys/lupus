@@ -7,22 +7,30 @@ import {
   Text,
   Alert,
   StyleSheet,
+  TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { perso } from "../assets/perso/data";
 import { List, useTheme, Avatar } from "react-native-paper";
 import { usePersoContext } from "../context/PersoContext";
+import DisplayCard from "./DisplayCard";
 
 const Creation = () => {
   const theme = useTheme();
   const [inputText, setInputText] = useState("");
   const { inputList, setInputList } = usePersoContext();
   const { selectedCounts, setSelectedCounts } = usePersoContext();
+  const [showTitle, setShowTitle] = useState({});
   console.log(selectedCounts);
   const [error, setError] = useState("");
 
   const handleInputChange = (text) => {
     setInputText(text);
     setError("");
+  };
+
+  const handleRemoveItemFromList = (id) => {
+    setInputList(inputList.filter((item) => item.id !== id));
   };
 
   const handleAddItem = () => {
@@ -50,6 +58,12 @@ const Creation = () => {
       <View style={styles.itemContainer}>
         <List.Icon icon="label" />
         <Text style={styles.itemText}>{item.text}</Text>
+        <TouchableOpacity
+          onPress={() => handleRemoveItemFromList(item.id)}
+          style={styles.deleteButton}
+        >
+          <List.Icon color={theme.colors.error} icon="delete" />
+        </TouchableOpacity>
       </View>
     );
   };
@@ -106,7 +120,7 @@ const Creation = () => {
 
   return (
     <>
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={{ flexDirection: "row", marginBottom: 10 }}>
           <TextInput
             placeholder="Ajouter un joueur"
@@ -117,36 +131,20 @@ const Creation = () => {
             onSubmitEditing={handleAddItem}
           />
         </View>
-        {error ? <Text style={styles.errorTextStyle}>{error}</Text> : null}
-        <FlatList
-          data={inputList}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={renderItem}
-          contentContainerStyle={{ flexGrow: 1 }}
-        />
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          padding: 10,
-        }}
-      >
-        {Object.entries(selectedCounts).map(([id, count]) => {
-          const persoItem = perso.find((p) => p.id === id);
-          return (
-            persoItem &&
-            Array.from({ length: count }, (_, index) => (
-              <Avatar.Image
-                key={id + "-" + index}
-                size={100}
-                source={persoItem.photo}
-              />
-            ))
-          );
-        })}
-      </View>
+      </ScrollView>
+      {error ? <Text style={styles.errorTextStyle}>{error}</Text> : null}
+      <FlatList
+        data={inputList}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderItem}
+        contentContainerStyle={{ flexGrow: 1 }}
+      />
+
+      <DisplayCard
+        selectedCounts={selectedCounts}
+        showTitle={showTitle}
+        setShowTitle={setShowTitle}
+      />
     </>
   );
 };

@@ -144,15 +144,20 @@ const Composition = () => {
     );
   };
 
-  const renderSublist = (camp) => {
-    const filteredList = perso.filter((item) => item.camp === camp);
+  const renderList = () => {
+    const orderedPerso = perso.sort((a, b) => {
+      const order = ["loup", "village", "solo"];
+      return order.indexOf(a.camp) - order.indexOf(b.camp);
+    });
+
     return (
       <View style={{ marginBottom: 16 }}>
         <FlatList
-          data={filteredList}
+          data={orderedPerso}
           renderItem={renderPerson}
           keyExtractor={(item) => item.id}
           numColumns={1}
+          nestedScrollEnabled={true}
         />
       </View>
     );
@@ -212,11 +217,7 @@ const Composition = () => {
       >
         {availablePlacesText}
       </Text>
-      <View style={styles.column}>{renderSublist("loup")}</View>
-      <Divider />
-      <View style={styles.column}>{renderSublist("village")}</View>
-      <Divider />
-      <View style={styles.column}>{renderSublist("solo")}</View>
+      <View style={styles.column}>{renderList()}</View>
     </ScrollView>
   );
 };

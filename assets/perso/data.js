@@ -36,7 +36,7 @@ export const perso = [
   {
     id: "8000",
     title: "Loup blanc",
-    photo: require("../loup-blanc.jpg"),
+    photo: require("../loup-blanc.webp"),
     description:
       "Le loup-garou blanc est un loup albinos, rejeté par ses pairs, il ne désire que se venger",
     camp: "solo",
@@ -46,7 +46,7 @@ export const perso = [
   {
     id: "2",
     title: "Villageois",
-    photo: require("../villageois.jpg"),
+    photo: require("../farmer-cut.webp"),
     description:
       "Le villageois n'a aucun pouvoir spécial, si ce n'est de voter au conseil du village contre celui qu'il suspecte être loup-garou.",
     camp: "village",
